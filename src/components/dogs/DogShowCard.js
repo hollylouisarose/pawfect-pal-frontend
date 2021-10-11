@@ -1,16 +1,15 @@
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { favouriteDog, getSingleDog } from '../../lib/api'
 import { getUserId } from '../../lib/auth'
 
 
 function DogShowCard( { dog }){
-  const history = useHistory()
   const [dogData, setDogData] = React.useState({
     favouritedBy: [],
   })
   const { dogId } = useParams()
-
+  const favouriteButton = document.querySelector('#favourite')
 
   React.useEffect(() => {
     const getData = async () => {
@@ -31,10 +30,10 @@ function DogShowCard( { dog }){
     console.log(dogId)
     try {
       await favouriteDog(dogId, dogData) 
+      favouriteButton.innerHTML = 'Added'
     } catch (error) {
       console.log(error)
     }
-    history.push('/favourites')
   } 
 
   return (
@@ -83,6 +82,7 @@ function DogShowCard( { dog }){
               className="button"
               onClick={handleFavourite}
               name="favouritedBy"
+              id="favourite"
               >Add to Favourites</button>
               <a className="backtodogs" href="/dogs">Back to dogs</a>
               </div>
