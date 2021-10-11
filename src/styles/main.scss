@@ -1,0 +1,89 @@
+@import 'bulma/css/bulma.css';
+@import url("https://use.typekit.net/iab6pmt.css");
+
+html {
+  background-image: url('../images/greenbg.svg');
+}
+
+$darkgreen: #48573e;
+
+body {
+  h1, h2, h3, h4, h5, a, label.label {
+  font-family: kansasnew, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: $darkgreen;
+  }
+
+  h1 {
+    font-size: 56px;
+  }
+
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  select{
+    background-color: #fbfbfb;
+    border: 1px solid $darkgreen;
+    height: 32px;
+    font-family: helvetica;
+    font-weight: 400;
+    font-size: 14px;
+  
+  }
+
+}
+
+.hero-body {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button {
+  background-color: #48573e;
+  color: #fbfbfb;
+  font-family: kansasnew, serif;
+}
+
+.content-dogshow{
+    padding: 0.5rem;
+  }
+
+.card, .card-header {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.box {
+  box-shadow: none;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+    a {
+      padding: 10px;
+    }
+}
+
+.search-filter-wrapper {
+  form {
+    padding: 50px 0;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  button {
+    margin-top: 25px;
+  }
+
+}
+
+.field.comment {
+  display: flex;
+  flex-direction: column;
+  input {
+    height: 50px;
+  }
+}
