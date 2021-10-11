@@ -1,5 +1,5 @@
 import React from 'react'
-import { getAllDogs } from '../../lib/api'
+import { getAllDogs, favouriteDog } from '../../lib/api'
 import Loading from '../../common/Loading'
 import { getUserId } from '../../lib/auth'
 
@@ -7,6 +7,10 @@ import { getUserId } from '../../lib/auth'
 function DogFavourite(){
 
   const [dogs, setDogs] = React.useState(null)
+  const [dogData, setDogData] = React.useState({
+    favouritedBy: [],
+  })
+  const [favourites, setFavourites] = React.useState('')
   const isLoading = !dogs
 
 
@@ -21,31 +25,26 @@ function DogFavourite(){
       }
     }
     getData()
-  }, [])
+  }, [favourites])
 
   const filteredDogs = () => {
     const userId = getUserId()
     return dogs.filter(dog => {
     return dog.favouritedBy.includes(userId)
-
     })
-
   }
 
-  // * need to reverse function below
-
-  // const handleFavourite = async () => {
-  //   const userId = getUserId()
-  //   setDogData(dogData.favouritedBy.push(userId))
-  //   console.log(dogData)
-  //   console.log(dogId)
-  //   try {
-  //     await favouriteDog(dogId, dogData) 
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  //   history.push('/favourites')
-  // } 
+  const handleRemove =  async (e) => {
+    const userId = getUserId()
+    const dogId = e.target.id
+    setDogData(dogData.favouritedBy.push(userId))
+    try {
+      const response = await favouriteDog(dogId, dogData) 
+      setFavourites(response.data.favouritedBy)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
   <section className="is-full-height">
@@ -54,7 +53,10 @@ function DogFavourite(){
         {isLoading && <Loading />}
         { (dogs && filteredDogs().map(dog => {
           return (
-            <div className="column is-one-quarter-desktop is-one-third-tablet">
+            <div 
+            className="column is-one-quarter-desktop is-one-third-tablet"
+            key={dog.id}
+            >
             <div className="card">
               <div className="card-header">
                 <div className="card-header-title">{dog.breed}</div>
@@ -75,7 +77,8 @@ function DogFavourite(){
                 {!dog.isGoodWithChildren && <h5> 👩 I prefer a child free home.</h5>}
                 </div>
                 <button 
-                // onClick={handleRemove}
+                id={dog.id}
+                onClick={handleRemove}
                 className="button">Remove</button>
               </div>
             </div>

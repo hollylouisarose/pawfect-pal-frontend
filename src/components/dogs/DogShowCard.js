@@ -70,7 +70,7 @@ function DogShowCard( { dog }){
               <h5>Characteristics</h5>
               {dog.characteristics && dog.characteristics.map(item =>{
                 return (
-                  <ul>
+                  <ul key={item}>
                     <li>
                     <p>💗 {item}</p> 
                     </li>
