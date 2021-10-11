@@ -1,6 +1,21 @@
-import { Link } from 'react-router-dom'
+import React from 'react'
+import { Link, useLocation, useHistory } from 'react-router-dom'
+import { isAuthenticated, removeToken } from '../lib/auth'
 
 function Navbar(){
+  const isAuth = isAuthenticated()
+  const {pathname } = useLocation()
+  const history = useHistory()
+
+  React.useEffect(() => {
+  },[pathname] )
+
+  const handleLogout = () => {
+    removeToken()
+    history.push('/')
+  }
+
+  console.log(isAuth)
 
   return (
     <nav className="navbar">
@@ -12,12 +27,31 @@ function Navbar(){
           <div className="navbar-item">
           <Link to="/dogs">See all Dogs</Link>
           </div>
-          <div className="navbar-item">
-          <Link to="/register">Sign up</Link>
-          </div>
-          <div className="navbar-item">
-          <Link to="/login">Log in</Link>
-          </div>
+          {!isAuth && (
+            <>
+            <div className="navbar-item">
+            <Link to="/register">Sign up</Link>
+            </div>
+            <div className="navbar-item">
+            <Link to="/login">Log in</Link>
+            </div>
+            </>
+          )}
+          {isAuth && (
+            <>
+            <div className="navbar-item">
+            <Link to="/favourites">Favourites 💗</Link>
+            </div>
+            <div className="navbar-item">
+            <button 
+            className="button"
+            onClick={handleLogout}
+            >
+              Log Out</button>
+            </div>
+            </>
+          )}
+          
         </div>
       </div> 
     </nav>
