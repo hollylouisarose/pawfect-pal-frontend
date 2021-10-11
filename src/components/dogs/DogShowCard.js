@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { favouriteDog, getSingleDog } from '../../lib/api'
-import { getUserId } from '../../lib/auth'
+import { getUserId, isAuthenticated, isOwner } from '../../lib/auth'
 
 
 function DogShowCard( { dog }){
@@ -10,6 +10,10 @@ function DogShowCard( { dog }){
   })
   const { dogId } = useParams()
   const favouriteButton = document.querySelector('#favourite')
+  const isAuth = isAuthenticated()
+  const owner = isOwner()
+
+  console.log(owner)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -78,13 +82,20 @@ function DogShowCard( { dog }){
               })}
               </div>
               <div className="cta">
-              <button 
-              className="button"
-              onClick={handleFavourite}
-              name="favouritedBy"
-              id="favourite"
-              >Add to Favourites</button>
+              {isAuth && (
+                  <button 
+                  className="button"
+                  onClick={handleFavourite}
+                  name="favouritedBy"
+                  id="favourite"
+                  >Add to Favourites</button>
+              )}
+              {!isAuth && (
+              <div className="content-dogshow">
+              <p>Like this dog? Sign up or login to add them to your favourites!</p>
               <a className="backtodogs" href="/dogs">Back to dogs</a>
+              </div>
+              )}
               </div>
             </div>
         </div>
