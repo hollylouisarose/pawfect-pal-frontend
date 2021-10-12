@@ -13,8 +13,6 @@ function DogFavourite(){
   const [favourites, setFavourites] = React.useState('')
   const isLoading = !dogs
 
-
-
   React.useEffect(() => {
     const getData = async () => {
       try {

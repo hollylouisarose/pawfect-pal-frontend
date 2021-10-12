@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { favouriteDog, getSingleDog, addComment } from '../../lib/api'
+import { favouriteDog, getSingleDog, addComment, deleteComment } from '../../lib/api'
 import { getUserId, isAuthenticated} from '../../lib/auth'
 
 
@@ -14,6 +14,7 @@ function DogShowCard( { dog }){
   const { dogId } = useParams()
   const favouriteButton = document.querySelector('#favourite')
   const isAuth = isAuthenticated()
+  const userId = getUserId()
   // todo: add owner can edit dog button
   // const owner = isOwner()
 
@@ -30,10 +31,7 @@ function DogShowCard( { dog }){
     }, [dogId])
 
   const handleFavourite = async () => {
-    const userId = getUserId()
     setDogData(dogData.favouritedBy.push(userId))
-    console.log(dogData)
-    console.log(dogId)
     try {
       await favouriteDog(dogId, dogData) 
       favouriteButton.innerHTML = 'Added'
@@ -42,17 +40,25 @@ function DogShowCard( { dog }){
     }
   } 
 
-
   const handleChange = (event) =>{
     setFormData({...formData, [event.target.name] : event.target.value})
-    console.log(formData)
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmitComment = async (event) => {
     event.preventDefault()
     try {
       const response = await addComment(dogId, formData)
       console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDeleteComment = async (e) => {
+    const commentId = e.target.id
+    try {
+      const response = await deleteComment(dogId, commentId)
+      console.log(response.data)
     } catch (error) {
       console.log(error)
     }
@@ -99,7 +105,23 @@ function DogShowCard( { dog }){
                   )
               })}
               </div>
-              <div className="cta">
+              <div className="content-dogshow">
+                <h5>Comments</h5>
+                {dog.comments && dog.comments.map(comment => {
+                  return (
+                    <div key={comment._id}>
+                    <p>{comment.text}</p>
+                    <p>{comment.addedBy.username}</p>
+                    <button
+                      className="button"
+                      id={comment._id}
+                      onClick={handleDeleteComment}
+                    >X</button>
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="content-dogshow">
               {isAuth && (
                 <>
                   <button 
@@ -110,8 +132,7 @@ function DogShowCard( { dog }){
                   Add to Favourites
                   </button>
                   <form 
-                  className="column is-half"
-                  onSubmit={handleSubmit}
+                  onSubmit={handleSubmitComment}
                   >
                     <div className="field">
                       <label className="label">
