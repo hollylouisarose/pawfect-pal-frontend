@@ -12,23 +12,23 @@ function DogShowCard( { dog }){
     text: '',
   })
   const { dogId } = useParams()
+  const [dogInfo, setDogInfo] = React.useState('')
   const favouriteButton = document.querySelector('#favourite')
   const isAuth = isAuthenticated()
   const userId = getUserId()
-  // todo: add owner can edit dog button
-  // const owner = isOwner()
 
   React.useEffect(() => {
     const getData = async () => {
         try {
           const response = await getSingleDog(dogId)
           setDogData(response.data)
+          setDogInfo(response.data)
         } catch (error) {
           console.log(error)
         }
       }
       getData()
-    }, [dogId])
+    }, [dogId, dogInfo])
 
   const handleFavourite = async () => {
     setDogData(dogData.favouritedBy.push(userId))
@@ -47,18 +47,18 @@ function DogShowCard( { dog }){
   const handleSubmitComment = async (event) => {
     event.preventDefault()
     try {
-      const response = await addComment(dogId, formData)
-      console.log(response)
+      await addComment(dogId, formData)
     } catch (error) {
       console.log(error)
     }
   }
 
+
+
   const handleDeleteComment = async (e) => {
     const commentId = e.target.id
     try {
-      const response = await deleteComment(dogId, commentId)
-      console.log(response.data)
+      await deleteComment(dogId, commentId)
     } catch (error) {
       console.log(error)
     }
