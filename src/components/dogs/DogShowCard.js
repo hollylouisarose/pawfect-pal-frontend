@@ -1,19 +1,21 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { favouriteDog, getSingleDog } from '../../lib/api'
-import { getUserId, isAuthenticated, isOwner } from '../../lib/auth'
+import { favouriteDog, getSingleDog, addComment } from '../../lib/api'
+import { getUserId, isAuthenticated} from '../../lib/auth'
 
 
 function DogShowCard( { dog }){
   const [dogData, setDogData] = React.useState({
     favouritedBy: [],
   })
+  const [formData, setFormData] = React.useState({
+    text: '',
+  })
   const { dogId } = useParams()
   const favouriteButton = document.querySelector('#favourite')
   const isAuth = isAuthenticated()
-  const owner = isOwner()
-
-  console.log(owner)
+  // todo: add owner can edit dog button
+  // const owner = isOwner()
 
   React.useEffect(() => {
     const getData = async () => {
@@ -39,6 +41,22 @@ function DogShowCard( { dog }){
       console.log(error)
     }
   } 
+
+
+  const handleChange = (event) =>{
+    setFormData({...formData, [event.target.name] : event.target.value})
+    console.log(formData)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const response = await addComment(dogId, formData)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -83,17 +101,42 @@ function DogShowCard( { dog }){
               </div>
               <div className="cta">
               {isAuth && (
+                <>
                   <button 
                   className="button"
                   onClick={handleFavourite}
                   name="favouritedBy"
-                  id="favourite"
-                  >Add to Favourites</button>
+                  id="favourite">
+                  Add to Favourites
+                  </button>
+                  <form 
+                  className="column is-half"
+                  onSubmit={handleSubmit}
+                  >
+                    <div className="field">
+                      <label className="label">
+                        Leave a comment 🐾
+                      </label>
+                      <input
+                      type="textarea"
+                      className="textarea"
+                      onChange={handleChange}
+                      name="text"
+                      value={formData.text}
+                      />
+                      <button className="button">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </>
               )}
               {!isAuth && (
               <div className="content-dogshow">
               <p>Like this dog? Sign up or login to add them to your favourites!</p>
-              <a className="backtodogs" href="/dogs">Back to dogs</a>
+              <a className="backtodogs" href="/dogs">
+                Back to dogs
+              </a>
               </div>
               )}
               </div>

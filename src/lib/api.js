@@ -23,6 +23,10 @@ export function favouriteDog(dogId, dogData){
   return axios.post(`${baseUrl}/dogs/${dogId}/favourite`, dogData, getHeaders())
 }
 
+export function addComment(dogId, formData){
+  return axios.post(`${baseUrl}/dogs/${dogId}/comments`, formData, getHeaders())
+}
+
 // * Auth requests
 
 export function registerUser(formData){

@@ -26,24 +26,24 @@ function DogIndex(){
     size: '',
     walkLength: '',
     isGoodWithChildren: false,
-    isGoodWithCats: false,
-    isCityDog: false,
+    isGoodWithCats: '',
+    isCityDog: '',
   })
 
-  const handleChange = (event) => {
-    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
-    setFormData({...formData, [event.target.name] : value })
+  const handleChange = (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    setFormData({...formData, [e.target.name] : value })
   }
 
-  const handleReset = (event) => {
-    event.preventDefault()
+  const handleReset = (e) => {
+    e.preventDefault()
     setFormData({
     breed: '',
     size: '',
     walkLength: '',
     isGoodWithChildren: false,
-    isGoodWithCats: false,
-    isCityDog: false,
+    isGoodWithCats: '',
+    isCityDog: '',
     })
   }
 
@@ -105,7 +105,7 @@ function DogIndex(){
           onClick={handleReset}
         >Reset filters</button>
       </div>
-            </form>
+      </form>
     </div>
 
     <section className="is-full-height">
