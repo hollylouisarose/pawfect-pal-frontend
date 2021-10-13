@@ -15,10 +15,12 @@ import EditDog from './components/dogs/EditDog'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import DogFavourite from './components/dogs/DogFavourite'
+import Footer from './common/Footer'
 
 
 function App() {
   return (
+    <>
     <BrowserRouter>
     <Navbar/>
     <Switch>
@@ -47,7 +49,9 @@ function App() {
         <DogFavourite />
       </SecureRoute>
     </Switch>
+    <Footer/>
     </BrowserRouter>
+    </>
   )
 }
 

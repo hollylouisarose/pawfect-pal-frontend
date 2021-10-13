@@ -30,7 +30,7 @@ function Login(){
 
 
   return (
-    <section className="section">
+    <section className="section full-height">
     <div className="container">
       <div className="columns">
         <form className="column is-half is-offset-one-quarter box"
