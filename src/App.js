@@ -9,6 +9,7 @@ import Navbar from './common/Navbar'
 import Home from './common/Home'
 import DogShow from './components/dogs/DogShow'
 import DogIndex from './components/dogs/DogIndex'
+import AddDog from './components/dogs/AddDog'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import DogFavourite from './components/dogs/DogFavourite'
@@ -21,6 +22,9 @@ function App() {
     <Switch>
       <Route exact path="/">
         <Home />
+      </Route>
+      <Route path="/dogs/new">
+        <AddDog/>
       </Route>
       <Route path="/dogs/:dogId">
         <DogShow />
