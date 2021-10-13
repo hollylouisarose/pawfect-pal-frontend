@@ -6,6 +6,7 @@ html {
 }
 
 $darkgreen: #48573e;
+$fadedwhite: #fafafa87;
 
 body {
   h1, h2, h3, h4, h5, a, label.label {
@@ -89,3 +90,11 @@ body {
   height: 80vh;
 }
 
+.map-container {
+  height: calc(80vh - 52px);
+  width: 100%;
+}
+
+.white {
+  background-color:$fadedwhite;
+}

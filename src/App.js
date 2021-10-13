@@ -15,6 +15,7 @@ import EditDog from './components/dogs/EditDog'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import DogFavourite from './components/dogs/DogFavourite'
+import Map from './components/map/Map'
 import Footer from './common/Footer'
 
 
@@ -48,6 +49,9 @@ function App() {
       <SecureRoute path="/favourites">
         <DogFavourite />
       </SecureRoute>
+      <Route path="/map">
+        <Map/>
+      </Route>
     </Switch>
     <Footer/>
     </BrowserRouter>

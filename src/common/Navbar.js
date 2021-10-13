@@ -25,7 +25,10 @@ function Navbar(){
           <Link to="/">Home</Link>
           </div>
           <div className="navbar-item">
-          <Link to="/dogs">See all Dogs</Link>
+          <Link to="/dogs">See all dogs</Link>
+          </div>
+          <div className="navbar-item">
+          <Link to="/map">Adopt a dog</Link>
           </div>
           {!isAuth && (
             <>

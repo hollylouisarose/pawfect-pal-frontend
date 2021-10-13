@@ -2,8 +2,8 @@ function Footer(){
 
 
   return (
-    <footer class="footer">
-      <div class="content has-text-centered">
+    <footer className="footer">
+      <div className="content has-text-centered">
         <p>All dog breed info from:  
           <br/>
           <a href="https://dogtime.com/"
