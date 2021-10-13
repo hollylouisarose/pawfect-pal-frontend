@@ -82,3 +82,8 @@ export function loginUser(formData){
   return axios.post(`${baseUrl}/login`, formData)
 }
 
+// * Centre requests
+
+export function getAllCentres(){
+  return axios.get(`${baseUrl}/centres`)
+}

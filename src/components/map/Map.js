@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactMapGL, { Marker, Popup } from 'react-map-gl'
-import locationData from './data/locations'
-
+import { getAllCentres } from '../../lib/api'
 
 function Map(){
 
@@ -11,8 +10,28 @@ function Map(){
     zoom: 8,
   })
 
-  const [locations] = React.useState(locationData)
+
+  const [locations, setLocations] = React.useState([])
   const [popup, setPopup] = React.useState(null)
+
+  React.useEffect(() => {
+
+    const getData = async () => {
+
+      try {
+        const response = await getAllCentres()
+        setLocations(response.data)
+      } catch (error) {
+        
+      }
+
+    }
+
+    getData()
+
+  }, [])
+
+
 
   return (
     <>
@@ -27,7 +46,7 @@ function Map(){
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         height="100%"
         width="100%"
-        mapStyle='mapbox://styles/mapbox/streets-v11'
+        mapStyle='mapbox://styles/mapbox/light-v10'
         {...viewport}
         onClick={() => setPopup(null)}
         onViewportChange={(viewport) => setViewport(viewport)}
