@@ -35,6 +35,10 @@ export function addDog(formData){
   return axios.post(`${baseUrl}/dogs`, formData, getHeaders())
 }
 
+export function deleteDog(dogId){
+  return axios.delete(`${baseUrl}/dogs/${dogId}`, getHeaders())
+}
+
 // * Auth requests
 
 export function registerUser(formData){

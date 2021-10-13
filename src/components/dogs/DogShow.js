@@ -1,11 +1,9 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-
-import { getSingleDog, favouriteDog, addComment, deleteComment } from '../../lib/api'
-import { isAuthenticated, getUserId } from '../../lib/auth'
+import { useParams, useHistory } from 'react-router-dom'
+import { getSingleDog, favouriteDog, addComment, deleteComment, deleteDog } from '../../lib/api'
+import { isAuthenticated, getUserId, isOwner} from '../../lib/auth'
 
 function DogShow(){
-
   const { dogId } = useParams()
   const [dog, setDog] = React.useState(null)
   const [dogData, setDogData] = React.useState({
@@ -17,6 +15,7 @@ function DogShow(){
   const favouriteButton = document.querySelector('#favourite')
   const isAuth = isAuthenticated()
   const userId = getUserId()
+  const history = useHistory()
 
   React.useEffect(() => {
     const getData = async () => {
@@ -68,6 +67,19 @@ function DogShow(){
     }
   }
 
+  const handleDeleteDog = async () => {
+    if (!window.confirm('Are you sure you want to delete this dog?')) {
+      return
+    }
+    try {
+      const response = await deleteDog(dogId)
+      console.log(response)
+      history.push('/dogs')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 return(
   <section className="section">
     <div className="container">
@@ -111,6 +123,11 @@ return(
                   )
               })}
               </div>
+              {isOwner(dog.addedBy._id) && (
+                <button
+                  onClick={handleDeleteDog}
+                >Delete</button>
+              )}
               <div className="content-dogshow">
                 <h5>Comments</h5>
                 {dog.comments && dog.comments.map(comment => {
