@@ -7,6 +7,7 @@ import {
 
 import Navbar from './common/Navbar'
 import Home from './common/Home'
+import SecureRoute from './common/SecureRoute'
 import DogShow from './components/dogs/DogShow'
 import DogIndex from './components/dogs/DogIndex'
 import AddDog from './components/dogs/AddDog'
@@ -24,12 +25,12 @@ function App() {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/dogs/new">
+      <SecureRoute path="/dogs/new">
         <AddDog/>
-      </Route>
-      <Route path="/dogs/:dogId/edit">
+      </SecureRoute>
+      <SecureRoute path="/dogs/:dogId/edit">
         <EditDog />
-      </Route>
+      </SecureRoute>
       <Route path="/dogs/:dogId">
         <DogShow />
       </Route>
@@ -42,9 +43,9 @@ function App() {
       <Route path="/login">
         <Login />
       </Route>
-      <Route path="/favourites">
+      <SecureRoute path="/favourites">
         <DogFavourite />
-      </Route>
+      </SecureRoute>
     </Switch>
     </BrowserRouter>
   )
