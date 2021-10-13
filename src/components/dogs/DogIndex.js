@@ -75,6 +75,7 @@ function DogIndex(){
       </div> 
       <div className="field">
       <label className="label">Filter by Size</label> 
+      <div className="select">
       <select 
             name="size"
             onChange={handleChange}
@@ -86,8 +87,10 @@ function DogIndex(){
             <option value="large"> Large</option>
           </select>
       </div>
+      </div>
       <div className="field">
       <label className="label">Filter by Walk length</label> 
+      <div className="select">
       <select 
             name="walkLength"
             onChange={handleChange}
@@ -98,7 +101,8 @@ function DogIndex(){
             <option value="1"> An hour</option>
             <option value="2"> Two hours</option>
             <option value="3"> Three hours</option>
-          </select>
+      </select>
+      </div>
       </div>
       <div className="field">
         <button className="button"

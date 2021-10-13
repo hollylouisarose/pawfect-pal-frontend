@@ -9,6 +9,35 @@ export function getHeaders() {
   }
 }
 
+// * Global variables
+
+export const initialDogData = {
+  breed: '',
+  origin: '',
+  image: '',
+  description:'',
+  size: '',
+  walkLength: 1,
+  isGoodWithCats: false,
+  isGoodWithChildren: false,
+  isCityDog: false,
+  characteristics: [],
+}
+
+export const characteristicsOptions = [
+  {value: 'Lively', label: 'Lively'},
+  {value: 'Devoted', label: 'Devoted'},
+  {value: 'Alert', label: 'Alert'},
+  {value: 'Playful', label: 'Playful'},
+  {value: 'Sensitive', label: 'Sensitive'},
+  {value: 'Intelligent', label: 'Intelligent'},
+  {value: 'Friendly', label: 'Friendly'},
+  {value: 'Gentle', label: 'Gentle'},
+  {value: 'Confident', label: 'Confident'},
+  {value: 'Active', label: 'Active'},
+  {value: 'Protective', label: 'Protective'},
+]
+
 // * Dog requests
 
 export function getAllDogs(){
@@ -33,6 +62,10 @@ export function deleteComment(dogId, commentId){
 
 export function addDog(formData){
   return axios.post(`${baseUrl}/dogs`, formData, getHeaders())
+}
+
+export function editDog(formData, dogId){
+  return axios.put(`${baseUrl}/dogs/${dogId}`, formData, getHeaders())
 }
 
 export function deleteDog(dogId){

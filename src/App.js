@@ -10,6 +10,7 @@ import Home from './common/Home'
 import DogShow from './components/dogs/DogShow'
 import DogIndex from './components/dogs/DogIndex'
 import AddDog from './components/dogs/AddDog'
+import EditDog from './components/dogs/EditDog'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import DogFavourite from './components/dogs/DogFavourite'
@@ -25,6 +26,9 @@ function App() {
       </Route>
       <Route path="/dogs/new">
         <AddDog/>
+      </Route>
+      <Route path="/dogs/:dogId/edit">
+        <EditDog />
       </Route>
       <Route path="/dogs/:dogId">
         <DogShow />

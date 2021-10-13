@@ -1,12 +1,25 @@
 import React from 'react'
+import { useParams, useHistory } from 'react-router'
 import Select from 'react-select'
-import { useHistory } from 'react-router'
-import { addDog, initialDogData, characteristicsOptions } from '../../lib/api'
+import { getSingleDog, initialDogData, characteristicsOptions, editDog } from '../../lib/api'
 
+function EditDog(){
 
-function AddDog(){
-  const [formData, setFormData]= React.useState(initialDogData)
+  const { dogId } = useParams()
+  const [formData, setFormData] = React.useState(initialDogData)
   const history = useHistory()
+
+  React.useEffect(()=> {
+    const getData = async () => {
+      try {
+        const response = await getSingleDog(dogId)
+        setFormData(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getData()
+  },[dogId])
 
   const handleChange = (event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
@@ -21,12 +34,13 @@ function AddDog(){
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await addDog(formData)
-      history.push('/dogs')
+      await editDog(formData, dogId)
+      history.push(`/dogs/${dogId}`)
     } catch (error) {
       console.log(error)
     }
   }
+
 
   return (
     <section className="section">
@@ -163,7 +177,7 @@ function AddDog(){
               </div>
             </div>
           <div className="field">
-            <button type="submit" className="button is-fullwidth">Add Dog</button>
+            <button type="submit" className="button is-fullwidth">Save Changes</button>
           </div>
         </form>
       </div>
@@ -172,8 +186,6 @@ function AddDog(){
   )
 
 
-
-
 }
 
-export default AddDog
+export default EditDog

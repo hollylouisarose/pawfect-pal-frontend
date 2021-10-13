@@ -43,6 +43,9 @@ function Navbar(){
             <Link to="/favourites">Favourites 💗</Link>
             </div>
             <div className="navbar-item">
+            <Link to="/dogs/new">Add a dog</Link>
+            </div>
+            <div className="navbar-item">
             <button 
             className="button"
             onClick={handleLogout}

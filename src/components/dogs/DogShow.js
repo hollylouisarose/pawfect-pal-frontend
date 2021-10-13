@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import { getSingleDog, favouriteDog, addComment, deleteComment, deleteDog } from '../../lib/api'
 import { isAuthenticated, getUserId, isOwner} from '../../lib/auth'
 
@@ -80,6 +80,8 @@ function DogShow(){
     }
   }
 
+
+
 return(
   <section className="section">
     <div className="container">
@@ -124,9 +126,15 @@ return(
               })}
               </div>
               {isOwner(dog.addedBy._id) && (
-                <button
+                <>
+                <button className="button is-danger"
                   onClick={handleDeleteDog}
                 >Delete</button>
+                <Link
+                to={`/dogs/${dogId}/edit`}
+                className="button is-warning"
+                >Edit</Link>
+                </>
               )}
               <div className="content-dogshow">
                 <h5>Comments</h5>
