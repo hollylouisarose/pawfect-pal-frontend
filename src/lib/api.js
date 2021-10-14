@@ -17,7 +17,7 @@ export const initialDogData = {
   image: '',
   description:'',
   size: '',
-  walkLength: 1,
+  walkLength: null,
   isGoodWithCats: false,
   isGoodWithChildren: false,
   isCityDog: false,

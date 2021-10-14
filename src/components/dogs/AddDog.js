@@ -14,6 +14,7 @@ function AddDog(){
   const handleChange = (event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
     setFormData({ ...formData, [event.target.name]: value})
+    setFormErrors({ ...formErrors, [event.target.name]: '' })
   }
 
   const handleMultiSelectChange = (selected, name) => {
@@ -27,7 +28,6 @@ function AddDog(){
 
   const removeImage = () => {
     setFormData({ ...formData, image: '' })
-    console.log('form data', formData)
   }
 
   const handleSubmit = async (event) => {
@@ -52,8 +52,10 @@ function AddDog(){
           <div className="field">
             <label className="label">Breed</label>
             <div className="control">
+            {formErrors.breed && 
+              (<p className="error-text">{formErrors.breed}</p>)}
               <input
-                className="input"
+                className={`input ${formErrors.breed ? 'is-danger' : ''}`}
                 placeholder="Breed"
                 name="breed"
                 onChange={handleChange}
@@ -64,8 +66,10 @@ function AddDog(){
           <div className="field">
             <label className="label"> Origin</label>
             <div className="control">
+            {formErrors.origin && 
+              (<p className="error-text">{formErrors.origin}</p>)}
               <input
-                className="input"
+                className={`input ${formErrors.origin ? 'is-danger' : ''}`}
                 placeholder="Origin"
                 name="origin"
                 onChange={handleChange}
@@ -76,6 +80,8 @@ function AddDog(){
             <div className="field">
             <label className="label">Image</label>
             <div className="control">
+            {formErrors.image && 
+              (<p className="error-text">{formErrors.image}</p>)}
                 <ImageUploadField
                   className={`input ${formErrors.image ? 'is-danger' : ''}`}
                   name="image"
@@ -93,8 +99,10 @@ function AddDog(){
               <div className="field">
             <label className="label">Description</label>
             <div className="control">
+            {formErrors.description && 
+              (<p className="error-text">{formErrors.description}</p>)}
               <input
-                className="textarea"
+                className={`textarea ${formErrors.description ? 'is-danger' : ''}`}
                 type="textarea"
                 placeholder="Breed description"
                 name="description"
@@ -105,10 +113,11 @@ function AddDog(){
             </div>
             <div className="field">
             <label className="label">Size</label> 
-            <div className="select">
+            {formErrors.size && 
+              (<p className="error-text">{formErrors.size}</p>)}
+            <div className={`select ${formErrors.description ? 'is-danger' : ''}`}>
             <select 
             name="size"
-            className="select"
             onChange={handleChange}
             value={formData.size}
             >
@@ -121,7 +130,9 @@ function AddDog(){
       </div>
       <div className="field">
       <label className="label">Walk length</label> 
-      <div className="select">
+      {formErrors.walkLength && 
+              (<p className="error-text">{formErrors.walkLength}</p>)}
+      <div className={`select ${formErrors.walkLength ? 'is-danger' : ''}`}>
       <select 
             name="walkLength"
             onChange={handleChange}
