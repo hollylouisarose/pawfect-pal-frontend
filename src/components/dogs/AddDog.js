@@ -2,10 +2,13 @@ import React from 'react'
 import Select from 'react-select'
 import { useHistory } from 'react-router'
 import { addDog, initialDogData, characteristicsOptions } from '../../lib/api'
-
+import ImageUploadField from '../../common/ImageUpload'
+import Loading from '../../common/Loading'
 
 function AddDog(){
   const [formData, setFormData]= React.useState(initialDogData)
+  const [formErrors, setFormErrors] = React.useState(initialDogData)
+  const isLoading = !formData 
   const history = useHistory()
 
   const handleChange = (event) => {
@@ -18,13 +21,25 @@ function AddDog(){
     setFormData({ ...formData, [name]: selectedItems})
   }
 
+  const handleImageUpload = (imageUrl) => {
+    setFormData({ ...formData, image: imageUrl })
+  }
+
+  const removeImage = () => {
+    setFormData({ ...formData, image: '' })
+    console.log('form data', formData)
+  }
+
+  console.log(formData)
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
       await addDog(formData)
       history.push('/dogs')
     } catch (error) {
-      console.log(error)
+      setFormErrors(error.response.data)
+      console.log(formErrors)
     }
   }
 
@@ -32,6 +47,7 @@ function AddDog(){
     <section className="section">
     <div className="container">
       <div className="columns">
+      {isLoading && <Loading />}
         <form className="column is-half is-offset-one-quarter box"
         onSubmit={handleSubmit}>
           <h3>Think we've missed a dog? Add your favourite!</h3>
@@ -62,14 +78,17 @@ function AddDog(){
             <div className="field">
             <label className="label">Image</label>
             <div className="control">
-              <input
-                className="input"
-                placeholder="Enter image url"
-                name="image"
-                onChange={handleChange}
-                value={formData.image}
-              />
-            </div>
+                <ImageUploadField
+                  className={`input ${formErrors.image ? 'is-danger' : ''}`}
+                  name="image"
+                  onChange={handleImageUpload}
+                  value={formData.image}
+                />
+                <div
+                  onClick={removeImage}>
+                  <p>Change Image</p>
+                </div>
+              </div>
               </div>
               <div className="field">
             <label className="label">Description</label>
