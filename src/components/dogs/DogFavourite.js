@@ -12,9 +12,6 @@ function DogFavourite(){
   })
   const [favourites, setFavourites] = React.useState('')
   const isLoading = !dogs
-  const [noFavourites, setNoFavourites] = React.useState(false)
-
-  console.log('no faves', noFavourites)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -32,7 +29,6 @@ function DogFavourite(){
     const userId = getUserId()
     return dogs.filter(dog => {
     if (!dog.favouritedBy.includes(userId)){
-      setNoFavourites(true)
     }
     return dog.favouritedBy.includes(userId)
     })
@@ -41,9 +37,9 @@ function DogFavourite(){
   const handleRemove =  async (e) => {
     const userId = getUserId()
     const dogId = e.target.id
-    setDogData(dogData.favouritedBy.push(userId))
     try {
       const response = await favouriteDog(dogId, dogData) 
+      console.log(response.data.favouritedBy)
       setFavourites(response.data.favouritedBy)
     } catch (error) {
       console.log(error)
@@ -54,7 +50,6 @@ function DogFavourite(){
   <section className="is-full-height">
       <div className="container">
         <div className="columns is-multiline">
-        {noFavourites && <h4>No favourites yet, head to over to dogs to add some! 🐾</h4>}
         {isLoading && <Loading />}
         { (dogs && filteredDogs().map(dog => {
           return (

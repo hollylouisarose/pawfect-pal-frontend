@@ -14,7 +14,6 @@ function DogShow(){
   const [formData, setFormData] = React.useState({
     text: '',
   })
-  const favouriteButton = document.querySelector('#favourite')
   const isAuth = isAuthenticated()
   const userId = getUserId()
   const history = useHistory()
@@ -37,7 +36,7 @@ function DogShow(){
     setDogData(dogData.favouritedBy.push(userId))
     try {
       await favouriteDog(dogId, dogData) 
-      favouriteButton.innerHTML = 'Added'
+      history.push('/favourites')
     } catch (error) {
       console.log(error)
     }
