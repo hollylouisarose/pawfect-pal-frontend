@@ -69,36 +69,42 @@ function DogShow(){
     }
   }
 
-  
-  const notify =  () => {
-    toast.error('This will permantely delete your dog! Click here to confirm or See All Dogs to cancel', {
-      onClose: async ()  => {
-        try {
-          const response = await deleteDog(dogId)
-          console.log(response)
-          history.push('/dogs')
-        } catch (error) {
-          console.log(error)
-        }
+  const notify = () => {
 
-      }  
-    })
+    toast.error('Click here to permanently delete, or back to cancel', {
+      position: "top-center",
+      autoClose: false,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+      onClick: async () => {
+        try {
+        const response = await deleteDog(dogId)
+        console.log(response)
+        history.push('/dogs')
+      } catch (error) {
+        console.log(error)
+      }
+      }
+      })
   }
 
 
 return(
   <section className="section">
     <div className="container">
-    <>
-    <ToastContainer
-    position="top-right"
-    autoClose={false}
-    newestOnTop={false}
-    closeOnClick
-    rtl={false}
-    pauseOnFocusLoss
-    draggable
-/>
+      <>
+      <ToastContainer
+      position="top-center"
+      autoClose={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable={false}
+      />
     {dog && (
       <div key={dog.breed}>
         <h2>{dog.breed}</h2>
@@ -138,10 +144,11 @@ return(
                   )
               })}
               </div>
-              {isOwner(dog.addedBy._id) && (
+              {isOwner(dog.addedBy._id) && dog && (
                 <>
                 <button className="button is-danger"
                   onClick={notify}
+                  id="delete"
                 >Delete</button>
                 <Link
                 to={`/dogs/${dogId}/edit`}
