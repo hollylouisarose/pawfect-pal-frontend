@@ -43,7 +43,7 @@ function Navbar(){
           {isAuth && (
             <>
             <div className="navbar-item">
-            <Link to="/favourites">Favourites 💗</Link>
+            <Link to="/favourites">Favourites</Link>
             </div>
             <div className="navbar-item">
             <Link to="/dogs/new">Add a dog</Link>

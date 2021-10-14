@@ -38,6 +38,13 @@ export const characteristicsOptions = [
   {value: 'Protective', label: 'Protective'},
 ]
 
+export const initialState = {
+  username: '',
+  email: '',
+  password: '',
+  passwordConfirmation: ''
+}
+
 // * Dog requests
 
 export function getAllDogs(){
