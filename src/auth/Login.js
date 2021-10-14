@@ -23,7 +23,7 @@ function Login(){
       const response = await loginUser(formData)
       setToken(response.data.token)
       history.push('/dogs')
-    } catch (error) {
+    } catch (err) {
       setIsError(true)
     }
   }
@@ -65,11 +65,8 @@ function Login(){
             <button type="submit" className="button is-fullwidth">Log in </button>
           </div>
         </form>
-
       </div>
-
     </div>
-
   </section>
   )
 

@@ -17,12 +17,10 @@ function Register(){
   const handleSubmit =  async (event) => {
     event.preventDefault()
     try {
-      const response = await registerUser(formData)
-      console.log(response)
+      await registerUser(formData)
       history.push('/login')
     } catch (error) {
       setFormErrors(error.response.data)
-      console.log(formErrors)
     }
   }
 

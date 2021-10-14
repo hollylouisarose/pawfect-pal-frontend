@@ -18,8 +18,8 @@ function EditDog(){
       try {
         const response = await getSingleDog(dogId)
         setFormData(response.data)
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        console.log(err)
       }
     }
     getData()
@@ -41,10 +41,8 @@ function EditDog(){
 
   const removeImage = () => {
     setFormData({ ...formData, image: '' })
-    console.log('form data', formData)
   }
 
-  console.log(formData)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -53,7 +51,6 @@ function EditDog(){
       history.push(`/dogs/${dogId}`)
     } catch (error) {
       setFormErrors(error.response.data)
-      console.log(formErrors)
     }
   }
 

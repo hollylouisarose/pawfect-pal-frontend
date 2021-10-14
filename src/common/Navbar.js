@@ -15,8 +15,6 @@ function Navbar(){
     history.push('/')
   }
 
-  console.log(isAuth)
-
   return (
     <nav className="navbar">
       <div className="container">

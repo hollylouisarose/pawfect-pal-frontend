@@ -37,7 +37,6 @@ function AddDog(){
       history.push('/dogs')
     } catch (error) {
       setFormErrors(error.response.data)
-      console.log(formErrors)
     }
   }
 

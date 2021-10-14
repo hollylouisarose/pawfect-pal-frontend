@@ -38,7 +38,6 @@ function DogShow(){
       await favouriteDog(dogId, dogData) 
       history.push('/favourites')
     } catch (error) {
-      console.log(error)
     }
   } 
 
@@ -52,8 +51,8 @@ function DogShow(){
       await addComment(dogId, formData)
       const newDog = await getSingleDog(dogId)
       setDog(newDog.data)
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -63,8 +62,8 @@ function DogShow(){
       await deleteComment(dogId, commentId)
       const newDog = await getSingleDog(dogId)
       setDog(newDog.data)
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -80,11 +79,10 @@ function DogShow(){
       progress: undefined,
       onClick: async () => {
         try {
-        const response = await deleteDog(dogId)
-        console.log(response)
+        await deleteDog(dogId)
         history.push('/dogs')
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        console.log(err)
       }
       }
       })
