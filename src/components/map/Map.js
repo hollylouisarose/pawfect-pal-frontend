@@ -32,7 +32,6 @@ function Map(){
   }, [])
 
 
-
   return (
     <>
     <section className="hero">
@@ -75,7 +74,17 @@ function Map(){
           >
             <div>
               {popup.name}
-              <p>Visit website</p>
+              {locations.map(location => {
+                if(popup.name === location.name){
+                  return (
+                    <a
+                    href={location.website}
+                    target="_blank" rel="noopener noreferrer"
+                    className="map-link"
+                    >Visit Website</a>
+                  )
+                }
+              })}
               </div>
           </Popup>
         }
