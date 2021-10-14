@@ -1,5 +1,7 @@
 import React from 'react'
 import { useParams, useHistory, Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getSingleDog, favouriteDog, addComment, deleteComment, deleteDog } from '../../lib/api'
 import { isAuthenticated, getUserId, isOwner} from '../../lib/auth'
 
@@ -67,25 +69,36 @@ function DogShow(){
     }
   }
 
-  const handleDeleteDog = async () => {
-    if (!window.confirm('Are you sure you want to delete this dog?')) {
-      return
-    }
-    try {
-      const response = await deleteDog(dogId)
-      console.log(response)
-      history.push('/dogs')
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  
+  const notify =  () => {
+    toast.error('This will permantely delete your dog! Click here to confirm or See All Dogs to cancel', {
+      onClose: async ()  => {
+        try {
+          const response = await deleteDog(dogId)
+          console.log(response)
+          history.push('/dogs')
+        } catch (error) {
+          console.log(error)
+        }
 
+      }  
+    })
+  }
 
 
 return(
   <section className="section">
     <div className="container">
     <>
+    <ToastContainer
+    position="top-right"
+    autoClose={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+/>
     {dog && (
       <div key={dog.breed}>
         <h2>{dog.breed}</h2>
@@ -128,7 +141,7 @@ return(
               {isOwner(dog.addedBy._id) && (
                 <>
                 <button className="button is-danger"
-                  onClick={handleDeleteDog}
+                  onClick={notify}
                 >Delete</button>
                 <Link
                 to={`/dogs/${dogId}/edit`}
