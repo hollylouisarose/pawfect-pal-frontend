@@ -30,8 +30,6 @@ function AddDog(){
     console.log('form data', formData)
   }
 
-  console.log(formData)
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -86,7 +84,9 @@ function AddDog(){
                 />
                 <div
                   onClick={removeImage}>
-                  <p>Change Image</p>
+                  <button className="button is-danger" >
+                    Remove Image
+                  </button>
                 </div>
               </div>
               </div>
@@ -104,9 +104,9 @@ function AddDog(){
             </div>
             </div>
             <div className="field">
-      <label className="label">Size</label> 
-      <div className="select">
-      <select 
+            <label className="label">Size</label> 
+            <div className="select">
+            <select 
             name="size"
             className="select"
             onChange={handleChange}
