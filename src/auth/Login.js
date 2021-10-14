@@ -1,20 +1,20 @@
 import React from 'react'
 import { useHistory } from 'react-router'
-import { loginUser } from '../lib/api'
+import { loginUser, initialLoginState } from '../lib/api'
 import { setToken } from '../lib/auth'
+
 
 function Login(){
 
   const history = useHistory()
 
-  const [formData, setFormData] = React.useState({
-    email: '',
-    password: '',
-  })
+  const [formData, setFormData] = React.useState(initialLoginState)
+  const [isError, setIsError] = React.useState(false)
 
 
   const handleChange = (event) =>{
     setFormData({...formData, [event.target.name] : event.target.value})
+    setIsError(false)
   }
 
   const handleSubmit = async (event) => {
@@ -24,7 +24,7 @@ function Login(){
       setToken(response.data.token)
       history.push('/dogs')
     } catch (error) {
-      console.log(error)
+      setIsError(true)
     }
   }
 
@@ -58,6 +58,9 @@ function Login(){
               />
             </div>
           </div>
+          {isError && 
+              <p className="has-text-centered">
+                Oops! Incorrect login details</p>}
           <div className="field">
             <button type="submit" className="button is-fullwidth">Log in </button>
           </div>

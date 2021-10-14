@@ -45,6 +45,11 @@ export const initialState = {
   passwordConfirmation: ''
 }
 
+export const initialLoginState = {
+  email: '',
+  password: '',
+}
+
 // * Dog requests
 
 export function getAllDogs(){
