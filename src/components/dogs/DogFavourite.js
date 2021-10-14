@@ -7,9 +7,6 @@ import { getUserId } from '../../lib/auth'
 function DogFavourite(){
 
   const [dogs, setDogs] = React.useState(null)
-  const [dogData, setDogData] = React.useState({
-    favouritedBy: [],
-  })
   const [favourites, setFavourites] = React.useState('')
   const isLoading = !dogs
 
@@ -35,11 +32,9 @@ function DogFavourite(){
   }
 
   const handleRemove =  async (e) => {
-    const userId = getUserId()
     const dogId = e.target.id
     try {
-      const response = await favouriteDog(dogId, dogData) 
-      console.log(response.data.favouritedBy)
+      const response = await favouriteDog(dogId) 
       setFavourites(response.data.favouritedBy)
     } catch (error) {
       console.log(error)
@@ -53,6 +48,7 @@ function DogFavourite(){
         {isLoading && <Loading />}
         { (dogs && filteredDogs().map(dog => {
           return (
+            <>
             <div 
             className="column is-one-quarter-desktop is-one-third-tablet"
             key={dog.id}
@@ -82,7 +78,8 @@ function DogFavourite(){
                 className="button">Remove</button>
               </div>
             </div>
-      </div>
+          </div>
+          </>
           )
         }))
         }
