@@ -73,7 +73,10 @@ function Map(){
             latitude={popup.latitude}
             longitude={popup.longitude}
           >
-            <div>{popup.name}</div>
+            <div>
+              {popup.name}
+              <p>Visit website</p>
+              </div>
           </Popup>
         }
       </ReactMapGL>
