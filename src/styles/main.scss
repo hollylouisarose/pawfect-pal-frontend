@@ -1,9 +1,9 @@
 @import 'bulma/css/bulma.css';
 @import url("https://use.typekit.net/iab6pmt.css");
 
-html {
-  background-image: url('/src/images/greenbgtest.png');
-}
+// html {
+//   background-image: url('/src/images/greenbgtest.png');
+// }
 
 $darkgreen: #48573e;
 $fadedwhite: #fafafa87;
@@ -15,6 +15,8 @@ body {
   font-style: normal;
   color: $darkgreen;
   }
+
+  background-image: url('/src/images/greenbgtest.png');
 
   h1 {
     font-size: 56px;
